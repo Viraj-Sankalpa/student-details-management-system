@@ -11,6 +11,16 @@ function Home() {
       .catch((err) => console.log(err));
   }, []);
 
+  const handleDelete=(id)=>{
+    axios.delete('http://localhost:3306/delete/' + id)
+    .then((res) => {
+      // eslint-disable-next-line no-restricted-globals
+      location.reload();
+    })
+      .catch((err) => console.log(err));
+    
+  }
+
   return (
     <div className='d-flex vh-100 bg-primary justify-content-cener align-items-center'>
       <div className='w-50 bg-white rounded p-3'>
@@ -36,8 +46,8 @@ function Home() {
                   <td>{student.Email}</td>
                   <td>
                     <link to={`/read/${student.ID}`} className='btn btn-sm btn-info'>Read</link>
-                    <button className='btn btn-sm btn-primary mx-2'>Edit</button>
-                    <buttonn className='btn btn-sm btn-danger'>Delete</buttonn>
+                    <link to={`/edit/${student.ID}`} className='btn btn-sm btn-primary mx-2'>Edit</link>
+                    <buttonn onclick={()=> handleDelete(student.ID)} className='btn btn-sm btn-danger'>Delete</buttonn>
                   </td>
                 </tr>
               );
